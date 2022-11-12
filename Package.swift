@@ -28,6 +28,10 @@ let package = Package(
                 .linkedFramework("MobileDevice")
             ]
         ),
+        .executableTarget(
+            name: "MobileDeviceKitSample",
+            dependencies: ["MobileDeviceKit"]
+        ),
         .testTarget(
             name: "MobileDeviceKitTests",
             dependencies: ["MobileDeviceKit"]
