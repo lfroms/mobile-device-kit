@@ -22,6 +22,15 @@
 /// General error.
 typedef int AMDError;
 
+/// A specific error that has occurred.
+enum {
+    kAMDSuccess = 0
+};
+
+/// Returns a human-readable description of an `AMDError`.
+/// - Parameter error: The error to retrieve the description for.
+CFStringRef AMDCopyErrorText(AMDError error);
+
 // MARK: - Types
 
 /// An opaque pointer to a single device.
@@ -49,6 +58,7 @@ typedef struct AMDeviceNotificationInfo {
     AMDeviceEvent event;
 } AMDeviceNotificationInfo;
 
+/// The type of the connection of a device.
 typedef enum {
     kAMDeviceInterfaceAny = 0,
     kAMDeviceInterfaceWired = 1,

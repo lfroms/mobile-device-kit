@@ -1,8 +1,8 @@
 //
-//  Device.swift
+//  Device+InstallApp.swift
 //  MobileDeviceKit
 //
-//  Created by Lukas Romsicki on 2022-11-20.
+//  Created by Lukas Romsicki on 2022-12-01.
 //  Copyright © 2022 Lukas Romsicki.
 //
 
@@ -10,23 +10,6 @@ import Foundation
 import MobileDevice
 
 public extension Device {
-    /// Transfers the app at the given URL to the device.
-    /// - Parameter bundleUrl: The URL at which the app bundle is located.
-    func transferApp(bundleUrl: URL) throws {
-        let transferCallback: AMDeviceInstallationCallback = { dictionary, argument in
-            print(dictionary as? [String: AnyObject] as Any)
-        }
-
-        AMDeviceSecureTransferPath(
-            nil,
-            device,
-            bundleUrl as CFURL,
-            ["PackageType": "Developer"] as CFDictionary,
-            transferCallback,
-            nil
-        )
-    }
-
     /// Installs the app at the given URL to the device.
     /// - Parameter bundleUrl: The URL at which the app bundle is located.
     func installApp(bundleUrl: URL) throws {
@@ -38,7 +21,7 @@ public extension Device {
         }
 
         AMDeviceSecureInstallApplication(
-            nil,
+            afcFd,
             device,
             bundleUrl as CFURL,
             ["PackageType": "Developer"] as CFDictionary,
