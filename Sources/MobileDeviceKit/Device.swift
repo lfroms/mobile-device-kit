@@ -18,43 +18,22 @@ import MobileDevice
 /// The ``devices`` property returns an `AsyncStream` of all devices currently attached to the system
 /// at the time of access.
 public struct Device: Identifiable {
-    public static let devices = AsyncStream<Device> { continuation in
-        Task(priority: .high) {
-            let list = AMDCreateDeviceList()
+    public static var devices: [Device] {
+        let deviceList = AMDCreateDeviceList()
 
-            guard let items = list?.takeRetainedValue() as? [CFTypeRef] else {
-                return continuation.finish()
-            }
+        guard let items = deviceList?.takeUnretainedValue() as? [AnyObject] else {
+            return []
+        }
 
-            items.forEach { item in
-                let devicePointer = unsafeBitCast(item, to: AMDeviceRef.self)
-
-                AMDeviceConnect(devicePointer)
-                AMDeviceStartSession(devicePointer)
-
-                defer {
-                    AMDeviceStopSession(devicePointer)
-                    AMDeviceDisconnect(devicePointer)
-                }
-
-                let device = Device(from: devicePointer)
-                continuation.yield(device)
-            }
-
-            continuation.finish()
+        return items.compactMap { item in
+            let devicePointer = unsafeBitCast(item, to: AMDeviceRef.self)
+            return Device(from: devicePointer)
         }
     }
 
     internal let device: AMDeviceRef
 
     public let id: String
-    public let deviceName: String?
-    public let buildVersion: String?
-    public let deviceClass: String?
-    public let deviceType: String?
-    public let hardwareModel: String?
-    public let productType: String?
-    public let productVersion: String?
 }
 
 // MARK: - Hashable
@@ -68,21 +47,6 @@ extension Device: Hashable {
 extension Device {
     init(from device: AMDeviceRef) {
         self.device = device
-
-        id = AMDeviceCopyDeviceIdentifier(device).takeRetainedValue() as String
-
-        let readProperty = { (name: String) in
-            let resultRef = AMDeviceCopyValue(device, nil, name as CFString)
-            return resultRef?.takeRetainedValue() as? String
-        }
-
-        deviceName = readProperty("DeviceName")
-
-        buildVersion = readProperty("BuildVersion")
-        deviceClass = readProperty("DeviceClass")
-        deviceType = readProperty("DeviceType")
-        hardwareModel = readProperty("HardwareModel")
-        productType = readProperty("ProductType")
-        productVersion = readProperty("ProductVersion")
+        self.id = AMDeviceCopyDeviceIdentifier(device).takeUnretainedValue() as String
     }
 }

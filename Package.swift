@@ -10,11 +10,14 @@ let package = Package(
         .library(
             name: "MobileDeviceKit",
             targets: ["MobileDeviceKit"]
+        ),
+        .executable(
+            name: "deviceutil",
+            targets: ["MobileDeviceUtil"]
         )
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.0")
     ],
     targets: [
         .target(
@@ -29,8 +32,11 @@ let package = Package(
             ]
         ),
         .executableTarget(
-            name: "MobileDeviceKitSample",
-            dependencies: ["MobileDeviceKit"]
+            name: "MobileDeviceUtil",
+            dependencies: [
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                "MobileDeviceKit"
+            ]
         ),
         .testTarget(
             name: "MobileDeviceKitTests",
