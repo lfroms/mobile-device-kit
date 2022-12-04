@@ -8,4 +8,11 @@
 
 public enum DeviceError: Error {
     case failedToTransferApp(message: String)
+    case failedToStartService(serviceName: String, message: String)
+    case invalidPackageType
+    case failedToInstallApp(message: String)
+    case failedToConnect(message: String)
+    case failedToDisconnect(message: String)
+    case failedToStartSession(message: String)
+    case failedToStopSession(message: String)
 }

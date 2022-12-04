@@ -147,6 +147,12 @@ AMDError AMDeviceSecureStartService(
 
 // MARK: - Installation
 
+#define kAFCServiceName             CFSTR("com.apple.afc")
+
+#define kAMDPackageTypeKey          CFSTR("PackageType")
+#define kAMDPackageTypeCustomer     CFSTR("Customer")
+#define kAMDPackageTypeDeveloper    CFSTR("Developer")
+
 /// Transfers the given application bundle to the device securely.
 /// - Parameters:
 ///   - afc_connection: Optional reference to an Apple File Conduit connection.
