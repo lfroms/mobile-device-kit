@@ -32,16 +32,6 @@ public extension Device {
             }
          
             Task {
-                var afcFd: AMDServiceConnectionRef?
-                let serviceStartError = AMDeviceSecureStartService(device, kAFCServiceName as CFString, nil, &afcFd)
-
-                guard serviceStartError == kAMDSuccess else {
-                    let message = AMDCopyErrorText(serviceStartError).takeRetainedValue() as String
-                    continuation.finish(throwing: DeviceError.failedToStartService(serviceName: kAFCServiceName, message: message))
-
-                    return
-                }
-
                 let packageType: String? = {
                     switch bundleUrl.pathExtension {
                         case "app":

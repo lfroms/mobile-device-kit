@@ -34,14 +34,6 @@ open class DeviceDiscoverySession: NSObject {
 
                 switch info.pointee.event {
                     case kAMDeviceConnected:
-                        AMDeviceConnect(devicePointer)
-                        AMDeviceStartSession(devicePointer)
-
-                        defer {
-                            AMDeviceStopSession(devicePointer)
-                            AMDeviceDisconnect(devicePointer)
-                        }
-
                         let device = Device(from: devicePointer)
 
                         guard !self.devices.contains(device) else {

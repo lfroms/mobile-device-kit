@@ -13,6 +13,9 @@ struct MobileDeviceUtil: AsyncParsableCommand {
     static var configuration = CommandConfiguration(
         commandName: "deviceutil",
         abstract: "A utility for interacting with Apple mobile devices connected to the system.",
-        subcommands: [Install.self]
+        subcommands: [
+            List.self,
+            Install.self
+        ]
     )
 }

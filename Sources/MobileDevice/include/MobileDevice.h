@@ -121,6 +121,12 @@ AMDError AMDeviceNotificationUnsubscribe(AMDeviceNotificationRef notification);
 
 // MARK: - Devices
 
+#define kAMDDeviceNameKey           CFSTR("DeviceName")
+#define kAMDBuildVersionKey         CFSTR("BuildVersion")
+#define kAMDProductTypeKey          CFSTR("ProductType")
+#define kAMDProductVersionKey       CFSTR("ProductVersion")
+#define kAMDDeviceClassKey          CFSTR("DeviceClass")
+
 /// Copies the device identifier.
 /// - Parameter device: The device to copy the device identifier from.
 CFStringRef AMDeviceCopyDeviceIdentifier(AMDeviceRef device);
@@ -131,6 +137,16 @@ CFStringRef AMDeviceCopyDeviceIdentifier(AMDeviceRef device);
 ///   - domain: Optional domain that the value is found in.
 ///   - key: The key under which the value is stored.
 CFTypeRef AMDeviceCopyValue(AMDeviceRef device, CFStringRef domain, CFStringRef key);
+
+/// Returns the interface type
+/// - Parameter device: The device to get the interface for.
+AMDeviceInterfaceType AMDeviceGetInterfaceType(AMDeviceRef device);
+
+/// Gets the status of developer mode.
+/// - Parameters:
+///   - device: The device to get the developer mode status for.
+///   - error: Any error that may have occurred.
+bool AMDeviceCopyDeveloperModeStatus(AMDeviceRef device,AMDError *error);
 
 /// Starts a service on the device.
 /// - Parameters:
