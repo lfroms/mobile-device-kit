@@ -146,7 +146,7 @@ AMDeviceInterfaceType AMDeviceGetInterfaceType(AMDeviceRef device);
 /// - Parameters:
 ///   - device: The device to get the developer mode status for.
 ///   - error: Any error that may have occurred.
-bool AMDeviceCopyDeveloperModeStatus(AMDeviceRef device,AMDError *error);
+bool AMDeviceCopyDeveloperModeStatus(AMDeviceRef device, AMDError *error);
 
 /// Starts a service on the device.
 /// - Parameters:

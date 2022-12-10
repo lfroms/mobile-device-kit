@@ -15,24 +15,42 @@ struct List: AsyncParsableCommand {
         abstract: "Lists the devices actively connected to the system."
     )
 
+    @Flag(name: [.short, .long], help: "Whether to continously observe and print device connection events.")
+    var observe: Bool = false
+
     func run() async throws {
+        if observe {
+            for await event in Device.deviceEvents {
+                let formattedDate = Date().formatted(date: .numeric, time: .standard)
+
+                switch event {
+                    case .connected(let device):
+                        print("[\(formattedDate)] Connected: \(device)")
+                    case .disconnected(let deviceIdentifier):
+                        print("[\(formattedDate)] Disconnected: \(deviceIdentifier)")
+                }
+            }
+
+            return
+        }
+
         let devices = Device.devices
-        
+
         for (index, device) in devices.enumerated() {
             print("\(index + 1)) \(device)")
         }
-        
+
         if !devices.isEmpty {
             print()
         }
-        
+
         print("\(devices.count) device(s) connected")
     }
 }
 
 extension Device: CustomStringConvertible {
     public var description: String {
-        "Name: \(name), UDID: \(id), Type: \(productType), Version: \(productVersion), Connection: \(connection)"
+        "\(name), UDID: \(id), Type: \(productType), Version: \(productVersion), Connection: \(connection)"
     }
 }
 
