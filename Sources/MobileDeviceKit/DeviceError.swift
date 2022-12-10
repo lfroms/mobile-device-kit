@@ -6,6 +6,7 @@
 //  Copyright © 2022 Lukas Romsicki.
 //
 
+/// Error that may be produced by a device.
 public enum DeviceError: Error {
     case failedToTransferApp(message: String)
     case failedToStartService(serviceName: String, message: String)

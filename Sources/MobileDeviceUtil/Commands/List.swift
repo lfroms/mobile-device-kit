@@ -50,11 +50,11 @@ struct List: AsyncParsableCommand {
 
 extension Device: CustomStringConvertible {
     public var description: String {
-        "\(name), UDID: \(id), Type: \(productType), Version: \(productVersion), Connection: \(connection)"
+        "\(name), UDID: \(id), Type: \(productType), Version: \(productVersion), Interface: \(interface)"
     }
 }
 
-extension Device.Connection: CustomStringConvertible {
+extension Device.Interface: CustomStringConvertible {
     public var description: String {
         switch self {
             case .wired:
