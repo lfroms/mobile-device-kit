@@ -16,4 +16,6 @@ public enum DeviceError: Error {
     case failedToDisconnect(message: String)
     case failedToStartSession(message: String)
     case failedToStopSession(message: String)
+    case failedToLoadDiskImageSignature
+    case failedToMountDiskImage(message: String)
 }

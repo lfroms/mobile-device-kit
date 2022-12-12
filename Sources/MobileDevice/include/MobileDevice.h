@@ -73,6 +73,9 @@ typedef void (*AMDeviceInstallationCallback)(CFDictionaryRef status, void *conte
 /// Callback used to report connect/disconnect events of devices on the system.
 typedef void (*AMDeviceNotificationCallback)(AMDeviceNotificationInfo *info, void *context);
 
+/// Callback used to report status when mounting a developer disk image.
+typedef void (*AMDeviceMountImageCallback)(CFDictionaryRef status, void *context);
+
 // MARK: - Connections
 
 /// Establishes a connection to the given device.
@@ -200,6 +203,27 @@ AMDError AMDeviceSecureInstallApplication(
     CFURLRef bundle_url,
     CFDictionaryRef options,
     AMDeviceInstallationCallback callback,
+    void *context
+);
+
+// MARK: - Development
+
+#define kAMDImageTypeKey            CFSTR("ImageType")
+#define kAMDImageTypeDeveloper      CFSTR("Developer")
+#define kAMDImageSignatureKey       CFSTR("ImageSignature")
+
+/// Mounts the given developer disk image on the device.
+/// - Parameters:
+///   - device: The device to mount the disk image on.
+///   - image_path: The path to the developer disk image on the host system.
+///   - options: Dictionary of options to use.
+///   - callback: Callback with status updates during the mount process.
+///   - context: Argument to pass to the provided `callback`.
+AMDError AMDeviceMountImage(
+    AMDeviceRef device,
+    CFStringRef image_path,
+    CFDictionaryRef options,
+    AMDeviceMountImageCallback callback,
     void *context
 );
 

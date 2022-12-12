@@ -88,7 +88,7 @@ private extension ApplicationTransferStatus {
                         return nil
                     }
 
-                    let progress = ApplicationTransferStatus.Phase.FileCopyProgress(
+                    let progress = FileCopyProgress(
                         totalFiles: totalFiles,
                         totalBytes: totalBytes,
                         copiedFiles: copiedFiles,
