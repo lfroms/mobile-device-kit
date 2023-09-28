@@ -54,6 +54,11 @@ If you prefer to reimplement parts of `MobileDevice.framework` instead without u
 
 ## Alternatives
 
+- [CoreDevice _via_ `devicectl`](https://developer.apple.com/documentation/Updates/Xcode)
+   - CoreDevice is a **first party** framework that exposes a public, documented command line tool: `devicectl`.
+   - The `devicectl` utility can be used to perform nearly all development-related tasks on wired and wirelessly-connected devices.
+   - Note: CoreDevice only supports devices running iOS 17 or newer.
+
 - [Apple Configurator](https://support.apple.com/en-ca/apple-configurator)
    - Apple Configurator is a **first party** application that provides a public, documented command line tool: `cfgutil`.
    - You'll probably want to use this for most things. However, it does not support wirelessly connected devices or debugging.
